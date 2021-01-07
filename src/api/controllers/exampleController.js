@@ -1,7 +1,7 @@
 import { postExampleSchema } from "../../schemas/exampleSchema";
 import { hashExample } from "../../services/exampleService";
 
-async function getExamples(req, res, next) {
+async function postExamples(req, res, next) {
   try {
     const { value, error } = postExampleSchema.validate(req.body);
     if (error) {
@@ -9,10 +9,10 @@ async function getExamples(req, res, next) {
     }
 
     const hash = await hashExample(value.example);
-    return res.send({ hash });
+    res.status(200).send({ hash });
   } catch (err) {
     next(err);
   }
 }
 
-export { getExamples };
+export { postExamples };
